@@ -3,11 +3,29 @@
 	import WeeklyGame from '$lib/components/games/WeeklyGame.svelte';
 	import NewsCard from '$lib/components/news/NewsCard.svelte';
 	import PlayerCard from '$lib/components/players/PlayerCard.svelte';
+	import { onMount } from 'svelte';
 
 	export let data;
 
 	const packersGames = data.nflData.events.filter((event: any) => {
 		return event.name.includes('Green Bay Packers');
+	});
+
+	let gameData: any;
+
+	async function getCurrentGame() {
+		const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/9');
+		const gameData = await res.json();
+		console.log(data);
+	}
+
+	onMount(async () => {
+		const intervalId = setInterval(async () => {
+			await getCurrentGame();
+		}, 60000);
+		if (gameData?.team.nextEvent[0]?.competitions[0]?.status.type === 'STATUS_FINAL') {
+			clearInterval(intervalId);
+		}
 	});
 
 	function currentWeekGame() {

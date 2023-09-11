@@ -118,7 +118,7 @@
 		color: #203731;
 		font-weight: 800;
 	}
-	@media (min-width: 425px) {
+	@media (min-width: 431px) {
 		.game-container {
 			height: 275px;
 		}

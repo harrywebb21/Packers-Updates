@@ -1,0 +1,39 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--packer-green: #203731;
+	--packer-yellow: #ffb612;
+}
+
+html {
+	background-color: #121212;
+}
+
+@property --gradient-rotate {
+	syntax: '<angle>';
+	inherits: false;
+	initial-value: 90deg;
+}
+
+.activePage {
+	border: 1px solid rgba(255, 182, 18, 1);
+	background-image: linear-gradient(
+		var(--gradient-rotate),
+		rgba(32, 55, 49, 1),
+		rgba(255, 255, 255, 1),
+		rgba(255, 182, 18, 1)
+	);
+	box-shadow: 0px 0px 10px 0px rgba(255, 182, 18, 0.5);
+}
+
+@keyframes gradient-rotate {
+	from {
+		--gradient-rotate: 45deg;
+	}
+	to {
+		--gradient-rotate: 405deg;
+	}
+}

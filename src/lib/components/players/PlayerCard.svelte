@@ -1,4 +1,6 @@
 <script>
+	import GlassCard from '../cards/GlassCard.svelte';
+
 	export let playerHeadshot = '';
 	export let playerName = '';
 	export let kitNumber = '';
@@ -8,8 +10,10 @@
 	export let weight = '';
 	export let packersLogo = '';
 	export let redirect = '';
+	export let injury = '';
 </script>
 
+<!-- svelte-ignore empty-block -->
 <a href={redirect}>
 	<div class="card-border w-[300px] h-[400px]">
 		<div class="player-card h-full w-full">
@@ -40,6 +44,9 @@
 				<p>AGE: {age}</p>
 				<p>HEIGHT: {height}</p>
 				<p>WEIGHT: {weight}</p>
+				{#if !injury}{:else}
+					<p class="plaster absolute -top-3 z-10 right-2 text-4xl p-3">🩹</p>
+				{/if}
 				<p class="kit-number-dark">{kitNumber}</p>
 			</div>
 		</div>
@@ -105,6 +112,7 @@
 		);
 		z-index: 10;
 	}
+
 	.first-name {
 		font-family: Cedarville Cursive;
 		font-size: 48px;

@@ -4,7 +4,7 @@
 
 	export let data;
 
-	// console.log('Players: ', data.playerData)
+	console.log('Players: ', data.playerData);
 </script>
 
 <GlassCard width="fit">
@@ -14,17 +14,32 @@
 		<div class="layout grid grid-cols gap-5">
 			{#each data.playerData.athletes[0].items as offensePlayers}
 				<div class=" flex flex-col items-center justify-center">
-					<PlayerCard
-						playerHeadshot={offensePlayers.headshot.href}
-						playerName={offensePlayers.displayName}
-						kitNumber={offensePlayers.jersey}
-						position={offensePlayers.position.abbreviation}
-						age={offensePlayers.age}
-						height={offensePlayers.displayHeight}
-						weight={offensePlayers.displayWeight}
-						packersLogo={data.packerData.team.logos[0].href}
-						redirect={`/players/${offensePlayers.id}`}
-					/>
+					{#if !offensePlayers.injuries}
+						<PlayerCard
+							playerHeadshot={offensePlayers.headshot.href}
+							playerName={offensePlayers.displayName}
+							kitNumber={offensePlayers.jersey}
+							position={offensePlayers.position.abbreviation}
+							age={offensePlayers.age}
+							height={offensePlayers.displayHeight}
+							weight={offensePlayers.displayWeight}
+							packersLogo={data.packerData.team.logos[0].href}
+							redirect={`/players/${offensePlayers.id}`}
+						/>
+					{:else}
+						<PlayerCard
+							playerHeadshot={offensePlayers.headshot.href}
+							playerName={offensePlayers.displayName}
+							kitNumber={offensePlayers.jersey}
+							position={offensePlayers.position.abbreviation}
+							age={offensePlayers.age}
+							height={offensePlayers.displayHeight}
+							weight={offensePlayers.displayWeight}
+							packersLogo={data.packerData.team.logos[0].href}
+							redirect={`/players/${offensePlayers.id}`}
+							injury={offensePlayers.injuries[0]}
+						/>
+					{/if}
 				</div>
 			{/each}
 		</div>
@@ -32,7 +47,7 @@
 		<h1 class="cards-container-title text-5xl font-black uppercase">Defense</h1>
 		<div class="layout grid grid-cols gap-5">
 			{#each data.playerData.athletes[1].items as defensePlayers}
-				{#if !defensePlayers.headshot}
+				{#if !defensePlayers.injuries}
 					<PlayerCard
 						playerName={defensePlayers.displayName}
 						kitNumber={defensePlayers.jersey}
@@ -54,6 +69,7 @@
 						weight={defensePlayers.displayWeight}
 						packersLogo={data.packerData.team.logos[0].href}
 						redirect={`/players/${defensePlayers.id}`}
+						injury={defensePlayers.injuries[0]}
 					/>
 				{/if}
 			{/each}
@@ -62,17 +78,32 @@
 		<div class="layout grid grid-cols gap-5">
 			{#each data.playerData.athletes[2].items as specialPlayers}
 				<div class=" flex flex-col items-center justify-center">
-					<PlayerCard
-						playerHeadshot={specialPlayers.headshot.href}
-						playerName={specialPlayers.displayName}
-						kitNumber={specialPlayers.jersey}
-						position={specialPlayers.position.abbreviation}
-						age={specialPlayers.age}
-						height={specialPlayers.displayHeight}
-						weight={specialPlayers.displayWeight}
-						packersLogo={data.packerData.team.logos[0].href}
-						redirect={`/players/${specialPlayers.id}`}
-					/>
+					{#if !specialPlayers.injuries}
+						<PlayerCard
+							playerHeadshot={specialPlayers.headshot.href}
+							playerName={specialPlayers.displayName}
+							kitNumber={specialPlayers.jersey}
+							position={specialPlayers.position.abbreviation}
+							age={specialPlayers.age}
+							height={specialPlayers.displayHeight}
+							weight={specialPlayers.displayWeight}
+							packersLogo={data.packerData.team.logos[0].href}
+							redirect={`/players/${specialPlayers.id}`}
+						/>
+					{:else}
+						<PlayerCard
+							playerHeadshot={specialPlayers.headshot.href}
+							playerName={specialPlayers.displayName}
+							kitNumber={specialPlayers.jersey}
+							position={specialPlayers.position.abbreviation}
+							age={specialPlayers.age}
+							height={specialPlayers.displayHeight}
+							weight={specialPlayers.displayWeight}
+							packersLogo={data.packerData.team.logos[0].href}
+							redirect={`/players/${specialPlayers.id}`}
+							injury={specialPlayers.injuries[0]}
+						/>
+					{/if}
 				</div>
 			{/each}
 		</div>

@@ -9,7 +9,7 @@
 	const getPlayerStats = async () => {
 		try {
 			const res = await fetch(
-				`http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/types/2/athletes/${$page.params.player}/statistics/0?lang=en%C2%AEion=us`,
+				`https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/types/2/athletes/${$page.params.player}/statistics/0?lang=en%C2%AEion=us`,
 				{
 					method: 'GET'
 				}

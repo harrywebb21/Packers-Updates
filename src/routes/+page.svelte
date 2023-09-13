@@ -118,6 +118,7 @@
 				byline={data.newsData.articles[0].byline}
 				published={data.newsData.articles[0].published}
 				image={data.newsData.articles[0].images[0].url}
+				link={data.newsData.articles[0].links.web.href}
 			/>
 			<PlayerCard
 				playerHeadshot={data.playerData.athletes[0].items[13].headshot.href}

@@ -1,4 +1,7 @@
 <script lang="ts">
+	import GlassCard from '$lib/components/cards/GlassCard.svelte';
+	import NewsCard from '$lib/components/news/NewsCard.svelte';
+
 	export let data;
 
 	const packerNews = data.newsData.articles.filter((category: any) => {
@@ -12,13 +15,13 @@
 	// console.log('News: ', data.newsData);
 </script>
 
-<div class="">
-	{#each data.newsData.articles as news}
-		<p>{news.headline}</p>
-		<p>{news.description}</p>
-		<p>{news.published}</p>
-		<p>{news.byline}</p>
-		<img src={news.images[0].url} alt="" />
-		<a href={news.links.web.href}>read more</a>
-	{/each}
-</div>
+{#each data.newsData.articles as news}
+	<NewsCard
+		headline={news.headline}
+		description={news.description}
+		image={news.images[0].url}
+		link={news.links.web.href}
+		published={news.published}
+		byline={news.byline}
+	/>
+{/each}

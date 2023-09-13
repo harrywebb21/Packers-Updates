@@ -1,9 +1,10 @@
 <script>
 	export let width = 'full';
+	export let height = 'full';
 </script>
 
 {#if width === 'full'}
-	<div class="glass flex items-center justify-center w-full h-full">
+	<div class="glass flex items-center justify-center w-full">
 		<slot />
 	</div>
 {:else if width === 'fit'}

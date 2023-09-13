@@ -1,146 +1,180 @@
 <script lang="ts">
+	import GlassCard from '$lib/components/cards/GlassCard.svelte';
+
 	export let data;
-
-	function date(date: any) {
-		const completeDate = new Date(date);
-		return (
-			(completeDate.toDateString() + ' ' + completeDate.toLocaleTimeString()).slice(0, 21) + ' PM'
-		);
-	}
-
-	console.log('nfl data:', data.nflData);
+	console.log(data.standingsData.content.standings.groups[0].groups[0]);
 </script>
 
-<div class="wrapper">
-	<div class="game-time">
-		<p>{data.nflData.events[0].status.displayClock}</p>
-		<p>{data.nflData.events[0].status.period}</p>
-	</div>
-	<div class="date-team-container">
-		<div class="week-date">
-			<p class="week">WEEK {data.nflData.events[0].week.number}</p>
-			<p>{date(data.nflData.events[0].date)}</p>
-		</div>
-		<div class="team-logos">
-			<img
-				class="team-2"
-				src={data.nflData.events[63].competitions[0].competitors[1].team.logo}
-				alt=""
-			/>
-			<img
-				class="team-1"
-				src={data.nflData.events[62].competitions[0].competitors[0].team.logo}
-				alt=""
-			/>
-		</div>
-	</div>
-	<div class="teams-scores glass">
-		<div class="team-1-name-score">
-			<p class="team-name">{data.nflData.events[0].competitions[0].competitors[0].team.name}</p>
-			<p class="score">{data.nflData.events[0].competitions[0].competitors[0].score}</p>
-		</div>
-		<div class="team-2-name-score">
-			<p class="team-name">{data.nflData.events[0].competitions[0].competitors[1].team.name}</p>
-			<p class="score">{data.nflData.events[0].competitions[0].competitors[1].score}</p>
-		</div>
-	</div>
+<div class="page flex flex-col gap-5 w-full">
+	{#each data.standingsData.content.standings.groups as regions}
+		<p class="region text-4xl font-black">{regions.abbreviation}</p>
+		{#each regions.groups as divisions}
+			<div class="table-wrapper">
+				<table>
+					<tr class="header-row">
+						<th>{divisions.abbreviation}</th>
+						<th class="main-stat-title"
+							>{divisions.standings.entries[0].stats[0].shortDisplayName}</th
+						>
+						<th class="main-stat-title"
+							>{divisions.standings.entries[0].stats[1].shortDisplayName}</th
+						>
+						<th class="main-stat-title"
+							>{divisions.standings.entries[0].stats[2].shortDisplayName}</th
+						>
+						<th class="optional-stat-title"
+							>{divisions.standings.entries[0].stats[3].shortDisplayName}</th
+						>
+						<th class="optional-stat-title"
+							>{divisions.standings.entries[0].stats[4].shortDisplayName}</th
+						>
+						<th class="optional-stat-title"
+							>{divisions.standings.entries[0].stats[5].shortDisplayName}</th
+						>
+						<th class="optional-stat-title"
+							>{divisions.standings.entries[0].stats[6].shortDisplayName}</th
+						>
+						<th class="optional-stat-title"
+							>{divisions.standings.entries[0].stats[7].shortDisplayName}</th
+						>
+						<th class="optional-stat-title"
+							>{divisions.standings.entries[0].stats[8].shortDisplayName}</th
+						>
+						<th class="optional-stat-title"
+							>{divisions.standings.entries[0].stats[9].shortDisplayName}</th
+						>
+						<th class="optional-stat-title"
+							>{divisions.standings.entries[0].stats[10].shortDisplayName}</th
+						>
+						<th class="main-stat-title"
+							>{divisions.standings.entries[0].stats[11].shortDisplayName}</th
+						>
+					</tr>
+
+					{#each divisions.standings.entries as teams}
+						<tr class="team-row">
+							<th class="team-header items-center">
+								<img class="team-logo" src={teams.team.logos[0].href} alt="" />
+
+								<p class="desktop-teams">
+									{teams.team.displayName}
+								</p>
+								<p class="mobile-teams">
+									{teams.team.name}
+								</p>
+							</th>
+							<td class="main-stat">{teams.stats[0].displayValue}</td>
+							<td class="main-stat">{teams.stats[1].displayValue}</td>
+							<td class="main-stat">{teams.stats[2].displayValue}</td>
+							<td class="optional-stat">{teams.stats[3].displayValue}</td>
+							<td class="optional-stat">{teams.stats[4].displayValue}</td>
+							<td class="optional-stat">{teams.stats[5].displayValue}</td>
+							<td class="optional-stat">{teams.stats[6].displayValue}</td>
+							<td class="optional-stat">{teams.stats[7].displayValue}</td>
+							<td class="optional-stat">{teams.stats[8].displayValue}</td>
+							<td class="optional-stat">{teams.stats[9].displayValue}</td>
+							<td class="optional-stat">{teams.stats[10].displayValue}</td>
+							<td class="main-stat">{teams.stats[11].displayValue}</td>
+						</tr>
+					{/each}
+				</table>
+			</div>
+		{/each}
+	{/each}
 </div>
 
 <style>
-	.wrapper {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.5rem;
-		padding-inline: 1rem;
-		width: clamp(100%, 20vw + 1rem, 100%);
-		height: clamp(100%, 20vw + 1rem, 100%);
+	.region {
+		background: var(--packer-yellow);
+		padding: 0.5rem 1rem;
+		border-radius: 20px 20px 0 0;
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	.team-row {
 		border: 1px solid rgba(255, 255, 255, 0.3);
-		border-radius: 20px;
-		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.37);
-		background-color: var(--packer-yellow);
-	}
-
-	.glass {
 		background: rgba(255, 255, 255, 0.1);
-		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.37);
-		backdrop-filter: blur(4px);
-		-webkit-backdrop-filter: blur(4px);
-		border-radius: 20px;
 	}
-
-	.game-time {
-		display: flex;
-		justify-content: space-between;
+	.team-row > td {
+		padding: 0.5rem 1rem;
+		text-align: center;
 	}
-
-	.date-team-container {
+	.table-wrapper {
+		width: 100%;
+		border-collapse: collapse;
+		background: rgba(255, 255, 255, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		padding: 0.5rem 1rem;
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
-		width: clamp(100%, 20vw + 1rem, 100%);
+		justify-content: center;
 	}
-	.week-date {
+	th {
+		padding: 0.5rem 1rem;
+		text-align: center;
+	}
+
+	.optional-stat-title {
+		display: none;
+	}
+
+	.optional-stat {
+		display: none;
+	}
+
+	.team-header {
 		display: flex;
 		flex-direction: column;
-		width: fit-content;
-		justify-content: center;
-		line-height: 1.5rem;
-	}
-
-	.week {
-		font-size: 1.75rem;
-		font-weight: 700;
-		color: var(--packer-green);
-	}
-
-	.teams-scores {
-		padding: 0.5rem 0.25rem;
-		display: flex;
-		gap: 1rem;
-		width: clamp(100%, 20vw + 1rem, 100%);
-		justify-content: center;
 		align-items: center;
-		border: 1px solid var(--packer-green);
-	}
-
-	.team-1-name-score,
-	.team-2-name-score {
-		display: flex;
-		flex-direction: column;
 		justify-content: center;
-		align-items: center;
+		font-size: clamp(0.75rem, 1vw, 1rem);
 	}
 
-	.team-name {
-		font-size: 1.5rem;
-		font-weight: 700;
-		text-transform: uppercase;
+	.desktop-teams {
+		display: none;
 	}
 
-	.score {
-		font-size: 2rem;
-		font-weight: 700;
-		color: var(--packer-green);
+	.team-logo {
+		width: 30px;
+		height: 30px;
 	}
 
-	.team-logos {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: clamp(fit-content, 20vw + 1rem, 100%);
-		filter: grayscale(100%);
+	@media (min-width: 768px) {
+		.team-header {
+			flex-direction: row;
+			justify-content: start;
+			gap: 1rem;
+			font-size: clamp(0.75rem, 1vw + 1rem, 1.5rem);
+		}
+		.desktop-teams {
+			display: block;
+		}
+		.mobile-teams {
+			display: none;
+		}
 	}
 
-	.team-logos > .team-1 {
-		width: clamp(6rem, 20vw + 1rem, 10rem);
-		aspect-ratio: 1/1;
-		transform: translateX(-80%);
-	}
-	.team-logos > .team-2 {
-		width: clamp(6rem, 20vw + 1rem, 10rem);
-		aspect-ratio: 1/1;
-		transform: translateX(80%);
+	@media (min-width: 1024px) {
+		.optional-stat-title {
+			display: table-cell;
+		}
+
+		.optional-stat {
+			display: table-cell;
+		}
+		.team-header {
+			flex-direction: row;
+			justify-content: start;
+			gap: 1rem;
+			font-size: clamp(0.75rem, 1vw + 1rem, 1.5rem);
+		}
+		.desktop-teams {
+			display: block;
+		}
+		.mobile-teams {
+			display: none;
+		}
 	}
 </style>

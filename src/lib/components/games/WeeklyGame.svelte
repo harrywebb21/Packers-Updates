@@ -147,9 +147,10 @@
 		height: clamp(100%, 15vw + 1rem, 30vw);
 	}
 	.game-container-complete {
-		background: #4f4f4f;
+		background: #2f2f2f;
 		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
 		height: clamp(100%, 15vw + 1rem, 30vw);
+		border: 2px solid #ffb612;
 	}
 	.date-score-container {
 		position: absolute;

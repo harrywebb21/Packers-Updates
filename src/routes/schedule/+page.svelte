@@ -14,6 +14,7 @@
 		);
 	}
 
+	console.log('PACKERS GAMES:', packersGames);
 	// console.log('PACKERS DATA:', data.packerData);
 	// console.log('NFL DATA:', data.nflData.events);
 </script>
@@ -30,6 +31,7 @@
 				team2Score={packers.competitions[0].competitors[1].score}
 				week={packers.week.number}
 				date={date(packers.date)}
+				complete={packers.status.type.completed}
 			/>
 		{/each}
 	</div>

@@ -11,6 +11,7 @@
 	export let team2Logo = '';
 	export let gameTime = '';
 	export let quarter = '';
+	export let complete = false;
 </script>
 
 <div class=" relative">
@@ -21,38 +22,81 @@
 			<p class="quarter">{quarter}</p>
 		</div>
 	{/if}
-	<div class="game-container flex justify-center items-center overflow-hidden rounded-2xl relative">
-		<img class="team1Logo" src={team1Logo} alt="" />
-		<img class="team2Logo" src={team2Logo} alt="" />
-		<div class="date-score-container flex flex-col w-full h-full justify-center items-center gap-5">
-			<GlassCard width="fit">
-				<div class="date-week flex flex-col items-center justify-center h-fit p-2">
-					<p class="week uppercase">Week {week}</p>
-					<p class="date">{date}</p>
-				</div>
-			</GlassCard>
+	{#if complete}
+		<div
+			class="game-container-complete flex justify-center items-center overflow-hidden rounded-2xl relative"
+		>
+			<img class="team1Logo" src={team1Logo} alt="" />
+			<img class="team2Logo" src={team2Logo} alt="" />
+			<div
+				class="date-score-container flex flex-col w-full h-full justify-center items-center gap-5"
+			>
+				<GlassCard width="fit">
+					<div class="date-week flex flex-col items-center justify-center h-fit p-2">
+						<p class="week uppercase">Week {week}</p>
+						<p class="date">{date}</p>
+					</div>
+				</GlassCard>
 
-			<div class="teams flex px-3 items-center justify-evenly h-fit w-full uppercase">
-				<div class="flex flex-col items-end justify-center h-fit w-full">
-					<GlassCard width="fit">
-						<div class="flex items-center justify-end w-full px-3 gap-3">
-							<p class="team-name h-fit leading-tight">{team1}</p>
-							<p class="score w-fit h-fit leading-tight">{team1Score}</p>
-						</div>
-					</GlassCard>
-				</div>
+				<div class="teams flex px-3 items-center justify-evenly h-fit w-full uppercase">
+					<div class="flex flex-col items-end justify-center h-fit w-full">
+						<GlassCard width="fit">
+							<div class="flex items-center justify-end w-full px-3 gap-3">
+								<p class="team-name h-fit leading-tight">{team1}</p>
+								<p class="score w-fit h-fit leading-tight">{team1Score}</p>
+							</div>
+						</GlassCard>
+					</div>
 
-				<div class="flex flex-col justify-center h-fit w-full">
-					<GlassCard width="fit">
-						<div class="flex items-center w-full px-3 gap-3">
-							<p class="score w-fit h-fit leading-tight">{team2Score}</p>
-							<p class="team-name w-full h-fit leading-tight">{team2}</p>
-						</div>
-					</GlassCard>
+					<div class="flex flex-col justify-center h-fit w-full">
+						<GlassCard width="fit">
+							<div class="flex items-center w-full px-3 gap-3">
+								<p class="score w-fit h-fit leading-tight">{team2Score}</p>
+								<p class="team-name w-full h-fit leading-tight">{team2}</p>
+							</div>
+						</GlassCard>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	{:else}
+		<div
+			class="game-container flex justify-center items-center overflow-hidden rounded-2xl relative"
+		>
+			<img class="team1Logo" src={team1Logo} alt="" />
+			<img class="team2Logo" src={team2Logo} alt="" />
+			<div
+				class="date-score-container flex flex-col w-full h-full justify-center items-center gap-5"
+			>
+				<GlassCard width="fit">
+					<div class="date-week flex flex-col items-center justify-center h-fit p-2">
+						<p class="week uppercase">Week {week}</p>
+						<p class="date">{date}</p>
+					</div>
+				</GlassCard>
+
+				<div class="teams flex px-3 items-center justify-evenly h-fit w-full uppercase">
+					<div class="flex flex-col items-end justify-center h-fit w-full">
+						<GlassCard width="fit">
+							<div class="flex items-center justify-end w-full px-3 gap-3">
+								<p class="team-name h-fit leading-tight">{team1}</p>
+								<p class="score w-fit h-fit leading-tight">{team1Score}</p>
+							</div>
+						</GlassCard>
+					</div>
+
+					<div class="flex flex-col justify-center h-fit w-full">
+						<GlassCard width="fit">
+							<div class="flex items-center w-full px-3 gap-3">
+								<p class="score w-fit h-fit leading-tight">{team2Score}</p>
+								<p class="team-name w-full h-fit leading-tight">{team2}</p>
+							</div>
+						</GlassCard>
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -102,6 +146,11 @@
 		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
 		height: clamp(100%, 15vw + 1rem, 30vw);
 	}
+	.game-container-complete {
+		background: #4f4f4f;
+		box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+		height: clamp(100%, 15vw + 1rem, 30vw);
+	}
 	.date-score-container {
 		position: absolute;
 		top: 0%;
@@ -114,14 +163,22 @@
 		text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 		gap: 1rem;
 	}
+
+	.game-container-complete .score,
+	.game-container-complete .week {
+		color: #ffb612;
+		font-weight: 800;
+	}
 	.score {
 		color: #203731;
 		font-weight: 800;
 	}
 	@media (min-width: 431px) {
-		.game-container {
+		.game-container,
+		.game-container-complete {
 			height: 275px;
 		}
+
 		.team-name {
 			font-size: clamp(0.75rem, 7vw, 6rem);
 		}

@@ -50,7 +50,7 @@
 </script>
 
 <div class="w-full flex flex-col justify-center gap-4">
-	<div class="flex flex-col gap-3 p-2 py-3 px-3 w-full">
+	<div class="flex flex-col gap-3 w-full">
 		<div class="flex flex-col gap-4 w-full mt-5">
 			{#if matchingGame}
 				<WeeklyGame

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
+
 	export let teamLogo = '';
 	export let teamName = '';
 	export let width = 50;
@@ -18,7 +19,7 @@
 	<div class="nav-box flex items-center justify-between w-full text-white">
 		<div class=" flex items-center w-full gap-3">
 			<a class="" href="/">
-				<img class="packersLogo" src={teamLogo} alt="" />
+				<img class="packersLogo" src="FTN Logo colour.svg" alt="" />
 			</a>
 			<h1 class="site-name">
 				<a href="/">
@@ -251,7 +252,7 @@
 			font-size: 2vw;
 		}
 		.packersLogo {
-			width: 8vw;
+			width: 6vw;
 		}
 	}
 </style>

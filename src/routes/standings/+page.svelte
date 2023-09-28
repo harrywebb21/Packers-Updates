@@ -1,8 +1,5 @@
 <script lang="ts">
-	import GlassCard from '$lib/components/cards/GlassCard.svelte';
-
 	export let data;
-	console.log(data.standingsData.content.standings.groups[0].groups[0]);
 </script>
 
 <div class="page flex flex-col gap-5 w-full">
@@ -104,7 +101,7 @@
 	.table-wrapper {
 		width: 100%;
 		border-collapse: collapse;
-		background: rgba(255, 255, 255, 0.1);
+		background: var(--packer-green);
 		border: 1px solid rgba(255, 255, 255, 0.3);
 		padding: 0.5rem 1rem;
 		display: flex;

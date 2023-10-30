@@ -1,28 +1,34 @@
 <script lang="ts">
-	import WeeklyGame from '$lib/components/games/WeeklyGame.svelte';
+	import GameCard from '$lib/components/games/GameCard.svelte';
 
 	export let data;
 
-	const packersGames = data.nflData.events.filter((event: any) => {
-		return event.name.includes('Green Bay Packers');
-	});
+	console.log(
+		data.nflData.events.map((event: any) => {
+			if (event.name.indexOf('Green Bay Packers') > -1 === true) {
+				return event;
+			}
+		})
+	);
+	// const packersGames = data.nflData.events.filter((event: any) => {
+	// 	return event.name.includes('Green Bay Packers');
+	// });
 
-	function date(date: any) {
-		const completeDate = new Date(date);
-		return (
-			(completeDate.toDateString() + ' ' + completeDate.toLocaleTimeString()).slice(0, 21) + ' PM'
-		);
-	}
+	// let team1 = packersGames.competitions[0].competitors[0];
+	// let team2 = packersGames.competitions[0].competitors[1];
+	// let event = packersGames;
 
-	console.log('PACKERS GAMES:', packersGames);
 	// console.log('PACKERS DATA:', data.packerData);
 	// console.log('NFL DATA:', data.nflData.events);
 </script>
 
 <div class="season-dates text-white flex flex-col gap-8 w-full">
 	<div class="flex flex-col gap-4 w-full">
-		{#each packersGames as packers}
-			<WeeklyGame
+		<!-- <GameCard {team1} {team2} {event} /> -->
+	</div>
+</div>
+
+<!-- <WeeklyGame
 				team1={packers.competitions[0].competitors[0].team.name}
 				team2={packers.competitions[0].competitors[1].team.name}
 				team1Logo={packers.competitions[0].competitors[0].team.logo}
@@ -32,7 +38,4 @@
 				week={packers.week.number}
 				date={date(packers.date)}
 				complete={packers.status.type.completed}
-			/>
-		{/each}
-	</div>
-</div>
+			/> -->

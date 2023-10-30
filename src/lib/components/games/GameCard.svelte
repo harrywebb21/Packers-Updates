@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { convertDate, convertTime } from '$lib';
-	export let data;
-	console.log('data:', data.packerData.team);
-	let team1 = data.packerData.team.nextEvent[0].competitions[0].competitors[0];
-	let team2 = data.packerData.team.nextEvent[0].competitions[0].competitors[1];
-	let event = data.packerData.team.nextEvent[0];
+	export let team1: any;
+	export let team2: any;
+	export let event: any;
 </script>
 
 <div class="game-box">

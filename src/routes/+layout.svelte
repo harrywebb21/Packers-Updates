@@ -12,6 +12,8 @@
 	}
 </script>
 
+<svelte:head><title>Frozen Tundra News</title></svelte:head>
+
 <Navbar teamLogo={data.packerData.team.logos[0].href} teamName="Frozen Tundra News" />
 
 <div class=" w-full p-[10px] text-white flex flex-col gap-6 justify-center items-center">

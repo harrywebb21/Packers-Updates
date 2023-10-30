@@ -1,7 +1,7 @@
 // place files you want to import through the `$lib` alias in this folder.
 export function convertDate(date: any) {
 	const completeDate = new Date(date);
-	return completeDate.toDateString();
+	return completeDate.toDateString().split(' ')[0] + ' ' + completeDate.toLocaleDateString();
 }
 
 export function convertTime(date: any) {

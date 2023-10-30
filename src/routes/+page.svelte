@@ -1,4 +1,5 @@
 <script lang="ts">
+	import GameCard from '$lib/components/games/GameCard.svelte';
 	import WeeklyGame from '$lib/components/games/WeeklyGame.svelte';
 	import NewsCard from '$lib/components/news/NewsCard.svelte';
 	import PlayerCard from '$lib/components/players/PlayerCard.svelte';
@@ -7,52 +8,49 @@
 
 	export let data;
 
-	const packersGames = data.nflData.events.filter((event: any) => {
-		return event.name.includes('Green Bay Packers');
-	});
+	// const packersGames = data.nflData.events.filter((event: any) => {
+	// 	return event.name.includes('Green Bay Packers');
+	// });
 
-	let matchingGame: any;
+	// let matchingGame: any;
 
-	function currentWeekGame() {
-		let upcomingGame = data.packerData.team.nextEvent[0]?.competitions[0]?.date;
-		if (!upcomingGame) {
-			console.log('no upcoming game');
-			return null;
-		}
+	// function currentWeekGame() {
+	// 	let upcomingGame = data.packerData.team.nextEvent[0]?.competitions[0]?.date;
+	// 	if (!upcomingGame) {
+	// 		console.log('no upcoming game');
+	// 		return null;
+	// 	}
 
-		matchingGame = packersGames.filter((game: any) => {
-			if (!game.date) {
-				console.log('no date');
-				return null;
-			} else if (date(game.date) === date(upcomingGame)) {
-				return { game };
-			}
-		});
-	}
+	// 	matchingGame = packersGames.filter((game: any) => {
+	// 		if (!game.date) {
+	// 			console.log('no date');
+	// 			return null;
+	// 		} else if (date(game.date) === date(upcomingGame)) {
+	// 			return { game };
+	// 		}
+	// 	});
+	// }
 
-	function date(date: any) {
-		const completeDate = new Date(date);
-		return (
-			(completeDate.toDateString() + ' ' + completeDate.toLocaleTimeString()).slice(0, 21) + ' PM'
-		);
-	}
-	onMount(() => {
-		currentWeekGame();
-		// console.log('matching game', matchingGame[0]?.competitions[0].competitors[0].team.name);
-	});
-	// console.log('NEWS', data.newsData.articles);
-	// console.log('player', data.playerData.athletes[0]);
-	// console.log('PACKERS GAMES:', packersGames[0].competitions[0]);
-	console.log('PACKERS DATA:', data.packerData);
-	console.log('STANDINGS DATA:', data.standingsData);
-	// console.log('NFL DATA:', data.nflData.events);
-	// Function to navigate to a different route after a delay
+	// function date(date: any) {
+	// 	const completeDate = new Date(date);
+	// 	return (
+	// 		(completeDate.toDateString() + ' ' + completeDate.toLocaleTimeString()).slice(0, 21) + ' PM'
+	// 	);
+	// }
+	// onMount(() => {
+	// 	currentWeekGame();
+	// });
+	let team1 = data.packerData.team.nextEvent[0].competitions[0].competitors[0];
+	let team2 = data.packerData.team.nextEvent[0].competitions[0].competitors[1];
+	let event = data.packerData.team.nextEvent[0];
+	// console.log('PACKERS DATA:', data.packerData);
+	// console.log('STANDINGS DATA:', data.standingsData);
 </script>
 
 <div class="w-full flex flex-col justify-center gap-4">
 	<div class="flex flex-col gap-3 w-full">
-		<div class="flex flex-col gap-4 w-full mt-5">
-			{#if matchingGame}
+		<div class="flex flex-col gap-4 w-full">
+			<!-- {#if matchingGame}
 				<WeeklyGame
 					team1={matchingGame[0]?.competitions[0].competitors[0].team.name}
 					team2={matchingGame[0]?.competitions[0].competitors[1].team.name}
@@ -65,9 +63,8 @@
 					gameTime={matchingGame[0]?.competitions[0].status.displayClock}
 					quarter={`Q ${matchingGame[0]?.competitions[0].status.period}`}
 				/>
-			{:else}
-				<p>loading...</p>
-			{/if}
+			{:else}{/if} -->
+			<GameCard {team1} {team2} {event} />
 		</div>
 
 		<SingleStanding>

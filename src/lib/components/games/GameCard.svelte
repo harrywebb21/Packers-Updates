@@ -17,6 +17,8 @@
 					<span class=" line-through">
 						WEEK {event.week.number}
 					</span>
+				{:else}
+					WEEK {event.week.number}
 				{/if}
 			</p>
 			<div class="game-date-box">
@@ -39,7 +41,11 @@
 				{#if !team1.score || !team2.score}
 					0 - 0
 				{:else}
-					{`${team1.score.displayValue} - ${team2.score.displayValue}`}
+					{#if !team1.score.displayValue || !team2.score.displayValue}
+						{`${team1.score} - ${team2.score}`}
+					{:else}
+						{`${team1.score.displayValue} - ${team2.score.displayValue}`}
+					{/if}
 					{#if team1.team.nickname === 'Packers'}
 						{#if team1.winner === true}
 							<span class="game-winner">W</span>
@@ -67,25 +73,45 @@
 	</div>
 	<div class="teams-container">
 		<div class="team-box-1">
-			<img
-				class="team-logo"
-				src={team1.team.logos[1].href}
-				alt={team1.team.displayName + ' logo'}
-			/>
+			{#if !team1.team.logos}
+				<img class="team-logo" src={team1.team.logo} alt={team1.team.displayName + ' logo'} />
+			{:else}
+				<img
+					class="team-logo"
+					src={team1.team.logos[1].href}
+					alt={team1.team.displayName + ' logo'}
+				/>
+			{/if}
 			<div class="">
 				<p class="team-name">{team1.team.displayName}</p>
-				<p class="team-record">{team1.record[0].displayValue}</p>
+				<p class="team-record">
+					{#if !team1.records}
+						{team1.record[0].displayValue}
+					{:else}
+						{team1.records[0].summary}
+					{/if}
+				</p>
 			</div>
 		</div>
 		<div class="team-box-2">
-			<img
-				class="team-logo"
-				src={team2.team.logos[1].href}
-				alt={team1.team.displayName + ' logo'}
-			/>
+			{#if !team2.team.logos}
+				<img class="team-logo" src={team2.team.logo} alt={team2.team.displayName + ' logo'} />
+			{:else}
+				<img
+					class="team-logo"
+					src={team2.team.logos[1].href}
+					alt={team2.team.displayName + ' logo'}
+				/>
+			{/if}
 			<div class="team-info-2">
 				<p class="team-name">{team2.team.displayName}</p>
-				<p class="team-record">{team2.record[0].displayValue}</p>
+				<p class="team-record">
+					{#if !team2.records}
+						{team2.record[0].displayValue}
+					{:else}
+						{team2.records[0].summary}
+					{/if}
+				</p>
 			</div>
 		</div>
 	</div>
@@ -95,18 +121,6 @@
 	.game-box {
 		width: 100%;
 		background: var(--packer-yellow);
-		/* background: var(
-			--packer-yellow-gradient,
-			linear-gradient(
-				90deg,
-				#b38010 0%,
-				#ffb612 33.33%,
-				#ffcc5a 51.56%,
-				#ffb612 69.27%,
-				#c89011 100%
-			)
-		); */
-
 		padding: 10px;
 		border: 1px solid white;
 		position: relative;

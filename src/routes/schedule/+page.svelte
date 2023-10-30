@@ -1,30 +1,25 @@
 <script lang="ts">
 	import GameCard from '$lib/components/games/GameCard.svelte';
-
 	export let data;
 
-	console.log(
-		data.nflData.events.map((event: any) => {
-			if (event.name.indexOf('Green Bay Packers') > -1 === true) {
-				return event;
-			}
-		})
-	);
-	// const packersGames = data.nflData.events.filter((event: any) => {
-	// 	return event.name.includes('Green Bay Packers');
-	// });
+	const packersGames = data.nflData.events.filter((event: any) => {
+		return event.name.includes('Green Bay Packers');
+	});
 
-	// let team1 = packersGames.competitions[0].competitors[0];
-	// let team2 = packersGames.competitions[0].competitors[1];
-	// let event = packersGames;
-
+	console.log('PACKERS GAMES:', packersGames);
 	// console.log('PACKERS DATA:', data.packerData);
 	// console.log('NFL DATA:', data.nflData.events);
 </script>
 
 <div class="season-dates text-white flex flex-col gap-8 w-full">
 	<div class="flex flex-col gap-4 w-full">
-		<!-- <GameCard {team1} {team2} {event} /> -->
+		{#each packersGames as game}
+			<GameCard
+				team1={game.competitions[0].competitors[0]}
+				team2={game.competitions[0].competitors[1]}
+				event={game}
+			/>
+		{/each}
 	</div>
 </div>
 
